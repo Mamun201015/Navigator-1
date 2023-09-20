@@ -1,4 +1,7 @@
-// ignore: camel_case_types
 class kImagePath {
-  static const String main = "assets/image.jpg";
+  static const String main = "assets/image1.jpg";
+}
+
+class kImage {
+  static const String main = "assets/image2.jpg";
 }

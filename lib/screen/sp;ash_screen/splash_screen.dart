@@ -15,20 +15,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    wenttopage();
+  wenttopage() {
+    return Future.delayed(
+        const Duration(seconds: 2),
+        () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignIn()),
+            ));
   }
 
-  wenttopage() {
-    Timer(Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SignIn(),
-          ));
-    });
+  @override
+  void initState() {
+    wenttopage();
+    super.initState();
   }
 
   @override
@@ -56,16 +55,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 color: Colors.blue,
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  (context);
-                },
-                child: Text("Show DateTime")),
           ],
         ),
       ),
     );
   }
-
-  signin() {}
 }
