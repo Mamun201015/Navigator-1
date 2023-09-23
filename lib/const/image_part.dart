@@ -8,3 +8,6 @@ class kImage {
 class kImages {
   static const String main = "assets/images.jpg";
 }
+class kImag {
+  static const String main = "assets/image.jpg";
+}
