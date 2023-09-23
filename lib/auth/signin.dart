@@ -1,17 +1,22 @@
+import 'package:class_12/auth/Text_from%20_field.dart';
 import 'package:class_12/auth/k_text.dart';
+import 'package:class_12/auth/signup.dart';
 import 'package:class_12/const/image_part.dart';
+import 'package:class_12/screen/navber.dart';
+import 'package:class_12/utils/colors.dart';
 import 'package:class_12/utils/height.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
-  static GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   @override
   State<SignIn> createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  bool isPassword = false;
+  bool isPassword = true;
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class _SignInState extends State<SignIn> {
       child: Padding(
         padding: const EdgeInsets.all(50),
         child: Form(
-          key: SignIn.formkey,
+          key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -47,18 +52,39 @@ class _SignInState extends State<SignIn> {
                 height: 15,
               ),
               KTextFromField(
+                prefixIcon: Icon(Icons.person),
                 hintext: "User Name or Email",
                 label: Text("Use Name or Email"),
+
+                //
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return " field can not be emopty";
+                //   }
+                // },
               ),
               SizedBox(
                 height: 15,
               ),
               KTextFromField(
-                iconData: Icons.lock,
-                hintext: "Password",
-                label: Text("Password"),
-                isPassword: true,
-              ),
+                  prefixIcon: Icon(Icons.lock),
+                  hintext: "Password",
+                  label: Text("Password"),
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return " field can not be emopty";
+                  //   }
+                  // },
+                  isPassword: isPassword,
+                  suffixIcon: GestureDetector(
+                      onTap: () {
+                        isPassword = !isPassword;
+                        setState(() {});
+                      },
+                      child: Icon(isPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility))),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -70,65 +96,56 @@ class _SignInState extends State<SignIn> {
                       )),
                 ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  SignIn.formkey.currentState?.validate();
-                },
-                child: Text(
-                  "Signin",
-                ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 4, 201, 11)),
+              SizedBox(
+                height: 20,
               ),
+              SizedBox(
+                height: 45,
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // formKey.currentState?.validate();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => NavBar(),
+                    ));
+                  },
+                  child: Text(
+                    "Signin",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      backgroundColor: Color.fromARGB(255, 4, 201, 11)),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Don't have a account"),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUp(),
+                          ));
+                    },
+                    child: KText(
+                      titleText: "Signup",
+                      color: Appcolors.green,
+                    ),
+                  )
+                ],
+              )
+              // ElevatedButton(onPressed: () {}, child: Text("Sign in"))
             ],
           ),
         ),
       ),
     ));
-  }
-}
-
-class KTextFromField extends StatelessWidget {
-  const KTextFromField({
-    super.key,
-    this.isPassword = false,
-    this.iconData,
-    this.hintext,
-    this.label,
-    this.suffixIcon,
-  });
-  final bool isPassword;
-  final IconData? iconData;
-  final hintext;
-  final label;
-  final suffixIcon;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          hintText: hintext,
-          label: label,
-          prefixIcon: iconData == null ? Icon(Icons.person) : Icon(iconData),
-          suffixIcon: isPassword != false
-              ? GestureDetector(
-                  onTap: () {},
-                  child: Icon(
-                      isPassword ? Icons.visibility : Icons.visibility_off))
-              : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.grey, width: 3),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(color: Colors.grey, width: 3),
-          ),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
-              borderSide: BorderSide(color: Colors.grey, width: 3)),
-          errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(40),
-              borderSide: BorderSide(color: Colors.red, width: 3))),
-    );
   }
 }
