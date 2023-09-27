@@ -29,7 +29,7 @@ class _SignUpState extends State<SignUp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                kImages.main,
+                kImagePath.app,
                 width: KAppSize.getwidth(context: context, size: 30),
                 height: KAppSize.getheight(context: context, size: 20),
                 fit: BoxFit.cover,
@@ -104,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                 child: ElevatedButton(
                   onPressed: () {
                     // formKey.currentState?.validate();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).pop(MaterialPageRoute(
                       builder: (context) => SignIn(),
                     ));
                   },

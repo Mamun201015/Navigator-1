@@ -30,7 +30,7 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                kImage.main,
+                kImagePath.img,
                 width: KAppSize.getwidth(context: context, size: 30),
                 height: KAppSize.getheight(context: context, size: 20),
                 fit: BoxFit.cover,
