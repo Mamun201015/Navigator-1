@@ -1,6 +1,8 @@
 import 'package:class_12/auth/Text_from%20_field.dart';
 import 'package:class_12/auth/k_text.dart';
 import 'package:class_12/const/image_part.dart';
+import 'package:class_12/data/card_data/card.dart';
+import 'package:class_12/data/card_data/product_data.dart';
 import 'package:class_12/utils/height.dart';
 import 'package:flutter/material.dart';
 
@@ -148,6 +150,7 @@ class _MyhomepageState extends State<Myhomepage> {
             SizedBox(
               height: 20,
             ),
+            //catagoris part!
             Padding(
               padding: EdgeInsets.only(left: 20),
               child: KText(
@@ -177,15 +180,45 @@ class _MyhomepageState extends State<Myhomepage> {
                           ),
                         ),
                       ),
-                      
                     );
-                    
                   },
-                  
                 ),
-                
               ),
-              
+            ),
+            //Product part!
+            Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: KText(
+                titleText: "Products",
+                color: Colors.black,
+                fontsize: 25,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Stack(
+              children: [
+                SizedBox(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: ProductData().itemList.length,
+                    itemBuilder: (context, index) {
+                      CardData item = ProductData().itemList[index];
+                      return Container(
+                        height: 30,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            image: NetworkImage(item.imgUrl),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),
